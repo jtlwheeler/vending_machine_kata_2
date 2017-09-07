@@ -32,6 +32,11 @@ class VendingMachineTests(unittest.TestCase):
         self.machine.insert_coin(vm.NICKEL)
         self.machine.return_coins()
         self.assertDictEqual({vm.NICKEL : 2}, self.machine.coin_return)
+    
+    def test_when_dime_is_inserted_and_coin_return_button_is_pressed_it_is_placed_in_coin_return(self):
+        self.machine.insert_coin(vm.DIME)
+        self.machine.return_coins()
+        self.assertDictEqual({vm.DIME : 1}, self.machine.coin_return)
 
 if __name__ == '__main__':
     unittest.main()
