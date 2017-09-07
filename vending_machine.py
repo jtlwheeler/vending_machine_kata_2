@@ -7,6 +7,7 @@ class VendingMachine:
     def __init__(self):
         self._inserted_coin_bin = {NICKEL : 0, DIME : 0, QUARTER : 0}
         self.coin_return = {}
+        self.product_dispense_bin = ""
 
     def _return_coin(self, coin, quantity):
         if coin in self.coin_return:
@@ -25,3 +26,6 @@ class VendingMachine:
             if self._inserted_coin_bin[coin] > 0:
                 self._return_coin(coin, self._inserted_coin_bin[coin])
                 self._inserted_coin_bin[coin] -= 1
+
+    def select_product(self, product):
+        pass

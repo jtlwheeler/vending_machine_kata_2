@@ -57,5 +57,9 @@ class VendingMachineTests(unittest.TestCase):
         expected_dict = {vm.PENNY : 1, vm.NICKEL : 2, vm.DIME : 2, vm.QUARTER : 2}
         self.assertDictEqual(expected_dict, self.machine.coin_return)
 
+    def test_when_cola_is_selected_without_enough_money_it_is_not_dispensed(self):
+        self.machine.select_product("COLA")
+        self.assertEqual("", self.machine.product_dispense_bin)
+
 if __name__ == '__main__':
     unittest.main()
