@@ -1,10 +1,11 @@
 PENNY = "PENNY"
 NICKEL = "NICKEL"
 DIME = "DIME"
+QUARTER = "QUARTER"
 
 class VendingMachine():
     def __init__(self):
-        self._inserted_coin_bin = {NICKEL : 0, DIME : 0}
+        self._inserted_coin_bin = {NICKEL : 0, DIME : 0, QUARTER : 0}
         self.coin_return = []
 
     def insert_coin(self, coin):
