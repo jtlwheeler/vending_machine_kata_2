@@ -1,5 +1,6 @@
 PENNY = "PENNY"
- 
+NICKEL = "NICKEL"
+
 class VendingMachine():
     def __init__(self):
         self.coin_return = []
