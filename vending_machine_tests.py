@@ -37,11 +37,25 @@ class VendingMachineTests(unittest.TestCase):
         self.machine.insert_coin(vm.DIME)
         self.machine.return_coins()
         self.assertDictEqual({vm.DIME : 1}, self.machine.coin_return)
-    
+
     def test_when_quarter_is_inserted_and_coin_return_button_is_pressed_it_is_placed_in_coin_return(self):
         self.machine.insert_coin(vm.QUARTER)
         self.machine.return_coins()
         self.assertDictEqual({vm.QUARTER : 1}, self.machine.coin_return)
+
+    def test_when_coins_are_inserted_and_coin_return_button_is_pressed_they_are_placed_in_coin_return(self):
+        self.machine.insert_coin(vm.NICKEL)
+        self.machine.insert_coin(vm.NICKEL)
+        self.machine.insert_coin(vm.PENNY)
+        self.machine.insert_coin(vm.DIME)
+        self.machine.insert_coin(vm.DIME)
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.QUARTER)
+
+        self.machine.return_coins()
+
+        expected_dict = {vm.PENNY : 1, vm.NICKEL : 2, vm.DIME : 2, vm.QUARTER : 2}
+        self.assertDictEqual(expected_dict, self.machine.coin_return)
 
 if __name__ == '__main__':
     unittest.main()
