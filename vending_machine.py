@@ -1,5 +1,6 @@
 PENNY = "PENNY"
 NICKEL = "NICKEL"
+DIME = "DIME"
 
 class VendingMachine():
     def __init__(self):
