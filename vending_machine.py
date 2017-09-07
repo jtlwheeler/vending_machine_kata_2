@@ -13,3 +13,9 @@ class VendingMachine():
             self._inserted_coin_bin[coin] += 1
         else:
             self.coin_return.append(coin)
+
+    def return_coins(self):
+        for coin in self._inserted_coin_bin:
+            if self._inserted_coin_bin[coin] > 0:
+                self.coin_return.append(coin)
+                self._inserted_coin_bin[coin] -= 1

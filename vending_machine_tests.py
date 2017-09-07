@@ -22,5 +22,10 @@ class VendingMachineTests(unittest.TestCase):
         self.machine.insert_coin(vending_machine.QUARTER)
         self.assertListEqual([], self.machine.coin_return)
 
+    def test_when_nickel_is_inserted_and_coin_return_button_is_pressed_it_is_placed_in_coin_return(self):
+        self.machine.insert_coin(vending_machine.NICKEL)
+        self.machine.return_coins()
+        self.assertListEqual([vending_machine.NICKEL], self.machine.coin_return)
+
 if __name__ == '__main__':
     unittest.main()
