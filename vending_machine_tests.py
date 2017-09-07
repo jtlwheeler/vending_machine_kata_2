@@ -1,5 +1,5 @@
 import unittest
-import vending_machine
+import vending_machine as vm
 from vending_machine import VendingMachine
 
 class VendingMachineTests(unittest.TestCase):
@@ -7,25 +7,31 @@ class VendingMachineTests(unittest.TestCase):
         self.machine = VendingMachine()
 
     def test_when_a_penny_is_inserted_it_is_placed_in_the_coin_return(self):
-        self.machine.insert_coin(vending_machine.PENNY)
-        self.assertListEqual([vending_machine.PENNY], self.machine.coin_return)
+        self.machine.insert_coin(vm.PENNY)
+        self.assertDictEqual({vm.PENNY : 1}, self.machine.coin_return)
 
     def test_when_a_nickel_is_inserted_it_is_not_placed_in_the_coin_return(self):
-        self.machine.insert_coin(vending_machine.NICKEL)
-        self.assertListEqual([], self.machine.coin_return)
+        self.machine.insert_coin(vm.NICKEL)
+        self.assertDictEqual({}, self.machine.coin_return)
 
     def test_when_a_dime_is_inserted_it_is_not_placed_in_the_coin_return(self):
-        self.machine.insert_coin(vending_machine.DIME)
-        self.assertListEqual([], self.machine.coin_return)
+        self.machine.insert_coin(vm.DIME)
+        self.assertDictEqual({}, self.machine.coin_return)
 
     def test_when_a_quarter_is_inserted_it_is_not_placed_in_the_coin_return(self):
-        self.machine.insert_coin(vending_machine.QUARTER)
-        self.assertListEqual([], self.machine.coin_return)
+        self.machine.insert_coin(vm.QUARTER)
+        self.assertDictEqual({}, self.machine.coin_return)
 
     def test_when_nickel_is_inserted_and_coin_return_button_is_pressed_it_is_placed_in_coin_return(self):
-        self.machine.insert_coin(vending_machine.NICKEL)
+        self.machine.insert_coin(vm.NICKEL)
         self.machine.return_coins()
-        self.assertListEqual([vending_machine.NICKEL], self.machine.coin_return)
+        self.assertDictEqual({vm.NICKEL : 1}, self.machine.coin_return)
+
+    def test_when_two_nickels_are_inserted_and_coin_return_button_is_pressed_they_are_placed_in_coin_return(self):
+        self.machine.insert_coin(vm.NICKEL)
+        self.machine.insert_coin(vm.NICKEL)
+        self.machine.return_coins()
+        self.assertDictEqual({vm.NICKEL : 2}, self.machine.coin_return)
 
 if __name__ == '__main__':
     unittest.main()
