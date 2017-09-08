@@ -4,13 +4,14 @@ DIME = "DIME"
 QUARTER = "QUARTER"
 
 COLA = "COLA"
+CHIPS = "CHIPS"
 
 class VendingMachine:
-    _PRODUCTS = {COLA : 100}
+    _PRODUCTS = {COLA : 100, CHIPS : 50}
 
     def __init__(self):
         self._inserted_coin_bin = {NICKEL : 0, DIME : 0, QUARTER : 0}
-        self._product_inventory = {COLA : 0}
+        self._product_inventory = {COLA : 0, CHIPS : 0}
 
         self.coin_return = {}
         self.product_dispense_bin = ""
