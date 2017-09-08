@@ -71,6 +71,9 @@ class VendingMachine:
             self._coin_inventory[coin] += self._inserted_coin_bin[coin]
             self._inserted_coin_bin[coin] = 0
 
+    def vendor_load_coin(self, coin, quantity):
+        self._coin_inventory[coin] += quantity
+
     def vendor_load_product(self, product, quantity):
         if product in self._product_inventory:
             self._product_inventory[product] += quantity
