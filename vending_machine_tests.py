@@ -97,5 +97,16 @@ class VendingMachineTests(unittest.TestCase):
         self.assertEqual(vm.CHIPS, self.machine.product_dispense_bin)
         self.assertEqual(2, self.machine.get_product_quantity(vm.CHIPS))
 
+    def test_when_candy_is_selected_with_enough_money_then_it_is_dispensed_and_removed_from_inventory(self):
+        self.machine.vendor_load_product(vm.CANDY, 10)
+        self.machine.insert_coin(vm.NICKEL)
+        self.machine.insert_coin(vm.DIME)
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.QUARTER)
+
+        self.machine.select_product(vm.CANDY)
+        self.assertEqual(vm.CANDY, self.machine.product_dispense_bin)
+        self.assertEqual(9, self.machine.get_product_quantity(vm.CANDY))
+
 if __name__ == '__main__':
     unittest.main()
