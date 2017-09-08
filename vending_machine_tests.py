@@ -65,7 +65,7 @@ class VendingMachineTests(unittest.TestCase):
         self.machine.vendor_load_product(vm.COLA, 1)
         self.assertEqual(1, self.machine.get_product_quantity(vm.COLA))
 
-    def test_when_vendor_loads_five_cola_it_is_added_to_the_product_inventory(self):
+    def test_when_vendor_loads_five_colas_it_is_added_to_the_product_inventory(self):
         self.machine.vendor_load_product(vm.COLA, 5)
         self.assertEqual(5, self.machine.get_product_quantity(vm.COLA))
 
@@ -107,6 +107,16 @@ class VendingMachineTests(unittest.TestCase):
         self.machine.select_product(vm.CANDY)
         self.assertEqual(vm.CANDY, self.machine.product_dispense_bin)
         self.assertEqual(9, self.machine.get_product_quantity(vm.CANDY))
+
+    def test_when_cola_is_dispensed_the_coins_are_placed_in_the_coin_inventory(self):
+        self.machine.vendor_load_product(vm.COLA, 1)
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.QUARTER)
+
+        self.machine.select_product(vm.COLA)
+        self.assertEqual(4, self.machine.get_coin_quantity(vm.QUARTER))
 
 if __name__ == '__main__':
     unittest.main()

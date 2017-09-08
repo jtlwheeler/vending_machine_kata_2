@@ -8,11 +8,17 @@ CHIPS = "CHIPS"
 CANDY = "CANDY"
 
 class VendingMachine:
-    _VALID_COINS = {NICKEL : 5, DIME : 10, QUARTER : 25}
     _PRODUCTS = {COLA : 100, CHIPS : 50, CANDY : 65}
+    _VALID_COINS = {NICKEL : 5, DIME : 10, QUARTER : 25}
 
     def __init__(self):
-        self._inserted_coin_bin = {NICKEL : 0, DIME : 0, QUARTER : 0}
+        self._coin_inventory = {}
+        self._inserted_coin_bin = {}
+
+        for coin in self._VALID_COINS:
+            self._coin_inventory[coin] = 0
+            self._inserted_coin_bin[coin] = 0
+
         self._product_inventory = {}
         for product in self._PRODUCTS:
             self._product_inventory[product] = 0
@@ -39,6 +45,9 @@ class VendingMachine:
         else:
             self._return_coin(coin, 1)
 
+    def get_coin_quantity(self, coin):
+        return self._coin_inventory[coin]
+
     def get_product_quantity(self, product):
         return self._product_inventory[product]
 
@@ -58,6 +67,9 @@ class VendingMachine:
 
         self.product_dispense_bin = product
         self._product_inventory[product] -= 1
+        for coin in self._inserted_coin_bin:
+            self._coin_inventory[coin] += self._inserted_coin_bin[coin]
+            self._inserted_coin_bin[coin] = 0
 
     def vendor_load_product(self, product, quantity):
         if product in self._product_inventory:
