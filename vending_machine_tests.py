@@ -72,6 +72,10 @@ class VendingMachineTests(unittest.TestCase):
     def test_when_vendor_loads_one_chips_it_is_added_to_the_product_inventory(self):
         self.machine.vendor_load_product(vm.CHIPS, 1)
         self.assertEqual(1, self.machine.get_product_quantity(vm.CHIPS))
+    
+    def test_when_vendor_loads_one_candy_it_is_added_to_the_product_inventory(self):
+        self.machine.vendor_load_product(vm.CANDY, 1)
+        self.assertEqual(1, self.machine.get_product_quantity(vm.CANDY))
 
 if __name__ == '__main__':
     unittest.main()
