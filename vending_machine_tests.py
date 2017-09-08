@@ -155,5 +155,9 @@ class VendingMachineTests(unittest.TestCase):
         self.machine.vendor_load_coin(vm.QUARTER, 100)
         self.assertEqual(100, self.machine.get_coin_quantity(vm.QUARTER))
 
+    def test_when_vendor_loads_penny_then_key_error_should_be_thrown(self):
+        with self.assertRaises(KeyError):
+            self.machine.vendor_load_coin(vm.PENNY)
+
 if __name__ == '__main__':
     unittest.main()
