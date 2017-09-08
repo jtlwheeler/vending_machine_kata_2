@@ -151,5 +151,9 @@ class VendingMachineTests(unittest.TestCase):
         self.machine.vendor_load_coin(vm.DIME, 5)
         self.assertEqual(5, self.machine.get_coin_quantity(vm.DIME))
 
+    def test_when_vendor_inserts_quarters_they_are_added_to_coin_inventory(self):
+        self.machine.vendor_load_coin(vm.QUARTER, 100)
+        self.assertEqual(100, self.machine.get_coin_quantity(vm.QUARTER))
+
 if __name__ == '__main__':
     unittest.main()
