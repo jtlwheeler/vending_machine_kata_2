@@ -118,5 +118,17 @@ class VendingMachineTests(unittest.TestCase):
         self.machine.select_product(vm.COLA)
         self.assertEqual(4, self.machine.get_coin_quantity(vm.QUARTER))
 
+    def test_when_chips_are_dispensed_the_coins_are_placed_in_the_coin_inventory(self):
+        self.machine.vendor_load_product(vm.CHIPS, 1)
+        self.machine.insert_coin(vm.DIME)
+        self.machine.insert_coin(vm.DIME)
+        self.machine.insert_coin(vm.DIME)
+        self.machine.insert_coin(vm.DIME)
+        self.machine.insert_coin(vm.DIME)
+
+        self.machine.select_product(vm.CHIPS)
+        self.assertEqual(vm.CHIPS, self.machine.product_dispense_bin)
+        self.assertEqual(5, self.machine.get_coin_quantity(vm.DIME))
+
 if __name__ == '__main__':
     unittest.main()
