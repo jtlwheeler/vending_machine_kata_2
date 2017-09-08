@@ -58,8 +58,12 @@ class VendingMachineTests(unittest.TestCase):
         self.assertDictEqual(expected_dict, self.machine.coin_return)
 
     def test_when_cola_is_selected_without_enough_money_it_is_not_dispensed(self):
-        self.machine.select_product("COLA")
+        self.machine.select_product(vm.COLA)
         self.assertEqual("", self.machine.product_dispense_bin)
+
+    def test_when_vendor_loads_one_cola_it_is_added_to_the_product_inventory(self):
+        self.machine.vendor_load_product(vm.COLA, 1)
+        self.assertEqual(1, self.machine.get_product_quantity(vm.COLA))
 
 if __name__ == '__main__':
     unittest.main()
