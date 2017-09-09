@@ -159,7 +159,7 @@ class VendingMachineTests(unittest.TestCase):
         with self.assertRaises(KeyError):
             self.machine.vendor_load_coin(vm.PENNY)
 
-    def test_when_cola_is_selected_and_five_cents_is_needed_a_nickel_is_placed_in_the_coin_return(self):
+    def test_when_cola_is_selected_and_five_cents_is_needed_then_a_nickel_is_placed_in_the_coin_return(self):
         self.machine.vendor_load_product(vm.COLA, 1)
         self.machine.vendor_load_coin(vm.NICKEL)
 
@@ -173,7 +173,7 @@ class VendingMachineTests(unittest.TestCase):
         self.machine.select_product(vm.COLA)
         self.assertDictEqual({vm.NICKEL : 1}, self.machine.coin_return)
 
-    def test_when_chips_is_selected_and_five_cents_is_needed_a_nickel_is_placed_in_the_coin_return(self):
+    def test_when_chips_is_selected_and_five_cents_is_needed_then_a_nickel_is_placed_in_the_coin_return(self):
         self.machine.vendor_load_product(vm.CHIPS, 1)
         self.machine.vendor_load_coin(vm.NICKEL)
 
@@ -185,7 +185,7 @@ class VendingMachineTests(unittest.TestCase):
         self.machine.select_product(vm.CHIPS)
         self.assertDictEqual({vm.NICKEL : 1}, self.machine.coin_return)
     
-    def test_when_candy_is_selected_and_five_cents_is_needed_a_nickel_is_placed_in_the_coin_return(self):
+    def test_when_candy_is_selected_and_five_cents_is_needed_then_a_nickel_is_placed_in_the_coin_return(self):
         self.machine.vendor_load_product(vm.CANDY, 1)
         self.machine.vendor_load_coin(vm.NICKEL)
 
@@ -209,6 +209,18 @@ class VendingMachineTests(unittest.TestCase):
         self.machine.insert_coin(vm.QUARTER)
 
         self.machine.select_product(vm.COLA)
+        self.assertDictEqual({vm.DIME : 1}, self.machine.coin_return)
+    
+    def test_when_chips_is_selected_and_ten_cents_is_needed_and_machine_only_has_dimes_then_a_dime_is_placed_in_the_coin_return(self):
+        self.machine.vendor_load_product(vm.CHIPS, 1)
+        self.machine.vendor_load_coin(vm.DIME)
+
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.NICKEL)
+        self.machine.insert_coin(vm.NICKEL)
+        self.machine.insert_coin(vm.QUARTER)
+
+        self.machine.select_product(vm.CHIPS)
         self.assertDictEqual({vm.DIME : 1}, self.machine.coin_return)
 
 if __name__ == '__main__':
