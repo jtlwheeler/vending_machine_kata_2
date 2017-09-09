@@ -171,5 +171,15 @@ class VendingMachineTests(unittest.TestCase):
         self.machine.select_product(vm.COLA)
         self.assertDictEqual({vm.NICKEL : 1}, self.machine.coin_return)
 
+    def test_when_chips_is_selected_and_five_cents_is_needed_a_nickel_is_placed_in_the_coin_return(self):
+        self.machine.vendor_load_product(vm.CHIPS, 1)
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.DIME)
+        self.machine.insert_coin(vm.DIME)
+        self.machine.insert_coin(vm.DIME)
+
+        self.machine.select_product(vm.CHIPS)
+        self.assertDictEqual({vm.NICKEL : 1}, self.machine.coin_return)
+
 if __name__ == '__main__':
     unittest.main()
