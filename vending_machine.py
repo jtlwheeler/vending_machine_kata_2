@@ -35,7 +35,7 @@ class VendingMachine:
 
     def _make_change(self, amount_needed):
         if amount_needed == 0:
-            return 
+            return
 
         if amount_needed == 5 and self._coin_inventory[NICKEL] > 0:
             self._return_coin(NICKEL, remove_from_inventory=True)
@@ -61,6 +61,11 @@ class VendingMachine:
 
         if amount_needed == 20 and self._coin_inventory[DIME] > 1:
             self._return_coin(DIME, 2, True)
+
+        if (amount_needed == 20 and self._coin_inventory[DIME] > 0
+                and self._coin_inventory[NICKEL] > 1):
+            self._return_coin(DIME, remove_from_inventory=True)
+            self._return_coin(NICKEL, 2, True)
 
     def _return_coin(self, coin, quantity=1, remove_from_inventory=False):
         if coin in self.coin_return:
