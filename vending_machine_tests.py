@@ -234,5 +234,16 @@ class VendingMachineTests(unittest.TestCase):
         self.machine.select_product(vm.CANDY)
         self.assertDictEqual({vm.DIME : 1}, self.machine.coin_return)
 
+    def test_when_product_is_selected_and_ten_cents_is_needed_and_machine_has_no_dimes_then_2_nickels_are_placed_in_the_coin_return(self):
+        self.machine.vendor_load_product(vm.CANDY, 1)
+        self.machine.vendor_load_coin(vm.NICKEL, 2)
+
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.QUARTER)
+
+        self.machine.select_product(vm.CANDY)
+        self.assertDictEqual({vm.NICKEL : 2}, self.machine.coin_return)
+
 if __name__ == '__main__':
     unittest.main()
