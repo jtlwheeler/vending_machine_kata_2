@@ -76,6 +76,13 @@ class VendingMachine:
         if remove_from_inventory:
             self._coin_inventory[coin] -= quantity
 
+    def _sold_out(self):
+        for quantity in self._PRODUCTS.values():
+            if quantity > 0:
+                return True
+
+        return False
+
     def insert_coin(self, coin):
         if coin in self._inserted_coin_bin:
             self._inserted_coin_bin[coin] += 1
@@ -89,7 +96,8 @@ class VendingMachine:
         return self._product_inventory[product]
 
     def read_display(self):
-        return "SOLD OUT"
+        if self._sold_out():
+            return "SOLD OUT"
 
     def return_coins(self):
         for coin in self._inserted_coin_bin:
