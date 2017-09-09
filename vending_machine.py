@@ -57,6 +57,10 @@ class VendingMachine:
 
         if amount_needed == 15 and self._coin_inventory[NICKEL] > 2:
             self._return_coin(NICKEL, 3, True)
+            return
+
+        if amount_needed == 20 and self._coin_inventory[DIME] > 1:
+            self._return_coin(DIME, 2, True)
 
     def _return_coin(self, coin, quantity=1, remove_from_inventory=False):
         if coin in self.coin_return:
