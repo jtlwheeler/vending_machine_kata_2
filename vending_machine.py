@@ -13,6 +13,7 @@ class VendingMachine:
 
     def __init__(self):
         self._coin_inventory = {}
+        self._display = ""
         self._inserted_coin_bin = {}
 
         for coin in self._VALID_COINS:
@@ -99,6 +100,11 @@ class VendingMachine:
         if self._sold_out():
             return "SOLD OUT"
 
+        if self._display:
+            temp_display = self._display
+            self._display = ""
+            return temp_display
+
         return "INSERT COIN"
 
     def return_coins(self):
@@ -113,6 +119,7 @@ class VendingMachine:
 
         inserted_amount = self._get_current_amount()
         if inserted_amount < self._PRODUCTS[product]:
+            self._display = "PRICE $%.2f" % (self._PRODUCTS[product] / 100.0)
             return
 
         self.product_dispense_bin = product
