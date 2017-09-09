@@ -38,32 +38,30 @@ class VendingMachine:
             return 
 
         if amount_needed == 5 and self._coin_inventory[NICKEL] > 0:
-            self._return_coin(NICKEL)
-            self._coin_inventory[NICKEL] -= 1
+            self._return_coin(NICKEL, remove_from_inventory=True)
             return
 
         if amount_needed == 10 and self._coin_inventory[DIME] > 0:
-            self._return_coin(DIME)
-            self._coin_inventory[DIME] -= 1
+            self._return_coin(DIME, remove_from_inventory=True)
             return
 
         if amount_needed == 10 and self._coin_inventory[NICKEL] > 1:
-            self._return_coin(NICKEL, 2)
-            self._coin_inventory[NICKEL] -= 2
+            self._return_coin(NICKEL, 2, True)
             return
 
         if (amount_needed == 15 and self._coin_inventory[DIME] > 0 and
                 self._coin_inventory[NICKEL] > 0):
-            self._return_coin(NICKEL)
-            self._return_coin(DIME)
-            self._coin_inventory[NICKEL] -= 1
-            self._coin_inventory[DIME] -= 1
+            self._return_coin(NICKEL, remove_from_inventory=True)
+            self._return_coin(DIME, remove_from_inventory=True)
 
-    def _return_coin(self, coin, quantity=1):
+    def _return_coin(self, coin, quantity=1, remove_from_inventory=False):
         if coin in self.coin_return:
             self.coin_return[coin] += quantity
         else:
             self.coin_return[coin] = quantity
+
+        if remove_from_inventory:
+            self._coin_inventory[coin] -= quantity
 
     def insert_coin(self, coin):
         if coin in self._inserted_coin_bin:
