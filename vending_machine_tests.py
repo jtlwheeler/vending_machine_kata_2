@@ -301,7 +301,7 @@ class VendingMachineTests(unittest.TestCase):
 
         self.assertDictEqual({vm.DIME : 2}, self.machine.coin_return)
 
-    def test_when_product_is_selected_and_twenty_cents_is_needed_and_machine_has_one_dime_and_at_least_two_nickels_then_two_dimes_are_placed_in_the_coin_return(self):
+    def test_when_product_is_selected_and_twenty_cents_is_needed_and_machine_has_one_dime_and_at_least_two_nickels_then_one_dime_and_2_nickels_are_placed_in_the_coin_return(self):
         self.machine.vendor_load_coin(vm.NICKEL, 2)
         self.machine.vendor_load_product(vm.CANDY)
 
@@ -311,8 +311,11 @@ class VendingMachineTests(unittest.TestCase):
         self.machine.insert_coin(vm.QUARTER)
 
         self.machine.select_product(vm.CANDY)
-        
+
         self.assertDictEqual({vm.NICKEL : 2, vm.DIME : 1}, self.machine.coin_return)
+
+    def test_when_machine_has_no_products_then_display_should_read_sold_out(self):
+        self.assertEqual("SOLD OUT", self.machine.read_display())
 
 if __name__ == '__main__':
     unittest.main()

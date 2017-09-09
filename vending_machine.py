@@ -88,6 +88,9 @@ class VendingMachine:
     def get_product_quantity(self, product):
         return self._product_inventory[product]
 
+    def read_display(self):
+        return "SOLD OUT"
+
     def return_coins(self):
         for coin in self._inserted_coin_bin:
             if self._inserted_coin_bin[coin] > 0:
