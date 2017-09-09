@@ -161,6 +161,8 @@ class VendingMachineTests(unittest.TestCase):
 
     def test_when_cola_is_selected_and_five_cents_is_needed_a_nickel_is_placed_in_the_coin_return(self):
         self.machine.vendor_load_product(vm.COLA, 1)
+        self.machine.vendor_load_coin(vm.NICKEL)
+
         self.machine.insert_coin(vm.QUARTER)
         self.machine.insert_coin(vm.QUARTER)
         self.machine.insert_coin(vm.QUARTER)
@@ -173,6 +175,8 @@ class VendingMachineTests(unittest.TestCase):
 
     def test_when_chips_is_selected_and_five_cents_is_needed_a_nickel_is_placed_in_the_coin_return(self):
         self.machine.vendor_load_product(vm.CHIPS, 1)
+        self.machine.vendor_load_coin(vm.NICKEL)
+
         self.machine.insert_coin(vm.QUARTER)
         self.machine.insert_coin(vm.DIME)
         self.machine.insert_coin(vm.DIME)
@@ -183,6 +187,8 @@ class VendingMachineTests(unittest.TestCase):
     
     def test_when_candy_is_selected_and_five_cents_is_needed_a_nickel_is_placed_in_the_coin_return(self):
         self.machine.vendor_load_product(vm.CANDY, 1)
+        self.machine.vendor_load_coin(vm.NICKEL)
+
         self.machine.insert_coin(vm.QUARTER)
         self.machine.insert_coin(vm.QUARTER)
         self.machine.insert_coin(vm.DIME)
