@@ -317,5 +317,11 @@ class VendingMachineTests(unittest.TestCase):
     def test_when_machine_has_no_products_then_display_should_read_sold_out(self):
         self.assertEqual("SOLD OUT", self.machine.read_display())
 
+    def test_when_machine_has_coins_and_products_then_display_should_read_insert_coin(self):
+        self.machine.vendor_load_coin(vm.NICKEL, 10)
+        self.machine.vendor_load_product(vm.COLA)
+
+        self.assertEqual("INSERT COIN", self.machine.read_display())
+
 if __name__ == '__main__':
     unittest.main()
