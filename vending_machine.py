@@ -53,6 +53,10 @@ class VendingMachine:
                 self._coin_inventory[NICKEL] > 0):
             self._return_coin(NICKEL, remove_from_inventory=True)
             self._return_coin(DIME, remove_from_inventory=True)
+            return
+
+        if amount_needed == 15 and self._coin_inventory[NICKEL] > 2:
+            self._return_coin(NICKEL, 3, True)
 
     def _return_coin(self, coin, quantity=1, remove_from_inventory=False):
         if coin in self.coin_return:
@@ -101,6 +105,6 @@ class VendingMachine:
     def vendor_load_coin(self, coin, quantity=1):
         self._coin_inventory[coin] += quantity
 
-    def vendor_load_product(self, product, quantity):
+    def vendor_load_product(self, product, quantity=1):
         if product in self._product_inventory:
             self._product_inventory[product] += quantity
