@@ -115,6 +115,7 @@ class VendingMachine:
 
     def select_product(self, product):
         if self._product_inventory[product] == 0:
+            self._display = "SOLD OUT"
             return
 
         inserted_amount = self._get_current_amount()
