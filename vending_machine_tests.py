@@ -412,12 +412,24 @@ class VendingMachineTests(unittest.TestCase):
 
         self.machine.insert_coin(vm.QUARTER)
         self.assertEqual("$0.50", self.machine.read_display())
-        
+
         self.machine.insert_coin(vm.QUARTER)
         self.assertEqual("$0.75", self.machine.read_display())
 
         self.machine.insert_coin(vm.QUARTER)
         self.assertEqual("$1.00", self.machine.read_display())
+
+    def test_when_machine_has_products_and_coins_and_customer_inserts_coins_and_presses_coin_return_button_then_display_should_show_insert_coin(self):
+        self.machine.vendor_load_coin(vm.NICKEL, 10)
+
+        self.machine.vendor_load_product(vm.COLA)
+        self.machine.vendor_load_product(vm.CHIPS)
+
+        self.machine.insert_coin(vm.QUARTER)
+
+        self.machine.return_coins()
+
+        self.assertEqual("INSERT COIN", self.machine.read_display())
 
 if __name__ == '__main__':
     unittest.main()
