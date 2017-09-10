@@ -346,7 +346,7 @@ class VendingMachineTests(unittest.TestCase):
 
         self.assertEqual("PRICE $1.00", self.machine.read_display())
         self.assertEqual("EXACT CHANGE ONLY", self.machine.read_display())
-    
+
     def test_when_machine_has_chips_and_no_nickels_and_chips_is_selected_then_display_should_show_exact_change_only(self):
         self.machine.vendor_load_coin(vm.DIME, 10)
         self.machine.vendor_load_coin(vm.QUARTER, 10)
@@ -356,6 +356,16 @@ class VendingMachineTests(unittest.TestCase):
         self.machine.select_product(vm.CHIPS)
 
         self.assertEqual("PRICE $0.50", self.machine.read_display())
+        self.assertEqual("EXACT CHANGE ONLY", self.machine.read_display())
+
+    def test_when_machine_has_candy_and_no_nickels_and_no_dimes_and_candy_is_selected_then_display_should_show_exact_change_only(self):
+        self.machine.vendor_load_coin(vm.QUARTER, 10)
+
+        self.machine.vendor_load_product(vm.CANDY)
+
+        self.machine.select_product(vm.CANDY)
+
+        self.assertEqual("PRICE $0.65", self.machine.read_display())
         self.assertEqual("EXACT CHANGE ONLY", self.machine.read_display())
 
 if __name__ == '__main__':
