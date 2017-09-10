@@ -389,13 +389,13 @@ class VendingMachineTests(unittest.TestCase):
         self.assertEqual("INSERT COIN", self.machine.read_display())
     
     def test_when_machine_has_candy_and_at_least_two_nickels_and_candy_is_selected_then_display_should_price_then_show_insert_coin(self):
-        self.machine.vendor_load_coin(vm.NICKEL, 1)
+        self.machine.vendor_load_coin(vm.NICKEL, 2)
 
-        self.machine.vendor_load_product(vm.CHIPS)
+        self.machine.vendor_load_product(vm.CANDY)
 
-        self.machine.select_product(vm.CHIPS)
+        self.machine.select_product(vm.CANDY)
 
-        self.assertEqual("PRICE $0.50", self.machine.read_display())
+        self.assertEqual("PRICE $0.65", self.machine.read_display())
         self.assertEqual("INSERT COIN", self.machine.read_display())
 
 if __name__ == '__main__':
