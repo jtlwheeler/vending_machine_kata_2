@@ -68,6 +68,13 @@ class VendingMachine:
             self._return_coin(DIME, remove_from_inventory=True)
             self._return_coin(NICKEL, 2, True)
 
+    def _no_coins(self):
+        for coin_quantity in self._coin_inventory.values():
+            if coin_quantity > 0:
+                return False
+
+        return True
+
     def _return_coin(self, coin, quantity=1, remove_from_inventory=False):
         if coin in self.coin_return:
             self.coin_return[coin] += quantity
@@ -104,6 +111,9 @@ class VendingMachine:
             temp_display = self._display
             self._display = ""
             return temp_display
+
+        if self._no_coins():
+            return "EXACT CHANGE ONLY"
 
         return "INSERT COIN"
 
