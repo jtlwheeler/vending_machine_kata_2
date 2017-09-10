@@ -115,6 +115,10 @@ class VendingMachine:
         if self._no_coins():
             return "EXACT CHANGE ONLY"
 
+        amount_entered = self._get_current_amount()
+        if amount_entered > 0:
+            return "$%.2f" % (amount_entered / 100.0)
+
         return "INSERT COIN"
 
     def return_coins(self):
