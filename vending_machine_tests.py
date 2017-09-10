@@ -294,6 +294,14 @@ class VendingMachineTests(unittest.TestCase):
         self.assertEqual("SOLD OUT", self.machine.read_display())
         self.assertEqual("INSERT COIN", self.machine.read_display())
 
+    def test_when_machine_has_coins_and_no_products_then_display_should_show_sold_out(self):
+        self.machine.vendor_load_coin(vm.NICKEL, 10)
+        self.machine.vendor_load_coin(vm.DIME, 10)
+        self.machine.vendor_load_coin(vm.QUARTER, 10)
+        
+        self.assertEqual("SOLD OUT", self.machine.read_display())
+        self.assertEqual("SOLD OUT", self.machine.read_display())
+
     def test_when_machine_has_products_but_no_coins_then_display_should_show_exact_change_only(self):
         self.machine.vendor_load_product(vm.COLA)
         self.machine.vendor_load_product(vm.CHIPS)
