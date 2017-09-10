@@ -142,6 +142,8 @@ class VendingMachine:
         change_needed = inserted_amount - self._PRODUCTS[product]
         self._make_change(change_needed)
 
+        self._display = "THANK YOU"
+
     def vendor_load_coin(self, coin, quantity=1):
         self._coin_inventory[coin] += quantity
 
