@@ -367,6 +367,16 @@ class VendingMachineTests(unittest.TestCase):
 
         self.assertEqual("PRICE $0.65", self.machine.read_display())
         self.assertEqual("EXACT CHANGE ONLY", self.machine.read_display())
+    
+    def test_when_machine_has_cola_and_nickels_and_cola_is_selected_then_display_should_show_insert_coin(self):
+        self.machine.vendor_load_coin(vm.NICKEL, 1)
+
+        self.machine.vendor_load_product(vm.COLA)
+
+        self.machine.select_product(vm.COLA)
+
+        self.assertEqual("PRICE $1.00", self.machine.read_display())
+        self.assertEqual("INSERT COIN", self.machine.read_display())
 
 if __name__ == '__main__':
     unittest.main()
