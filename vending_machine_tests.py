@@ -69,11 +69,11 @@ class VendingMachineTests(unittest.TestCase):
         self.machine.vendor_load_product(vm.COLA, 5)
         self.assertEqual(5, self.machine.get_product_quantity(vm.COLA))
 
-    def test_when_vendor_loads_one_chips_it_is_added_to_the_product_inventory(self):
+    def test_when_vendor_loads_one_chips_then_it_is_added_to_the_product_inventory(self):
         self.machine.vendor_load_product(vm.CHIPS, 1)
         self.assertEqual(1, self.machine.get_product_quantity(vm.CHIPS))
 
-    def test_when_vendor_loads_one_candy_it_is_added_to_the_product_inventory(self):
+    def test_when_vendor_loads_one_candy_then_it_is_added_to_the_product_inventory(self):
         self.machine.vendor_load_product(vm.CANDY, 1)
         self.assertEqual(1, self.machine.get_product_quantity(vm.CANDY))
 
@@ -108,7 +108,7 @@ class VendingMachineTests(unittest.TestCase):
         self.assertEqual(vm.CANDY, self.machine.product_dispense_bin)
         self.assertEqual(9, self.machine.get_product_quantity(vm.CANDY))
 
-    def test_when_cola_is_dispensed_the_coins_are_placed_in_the_coin_inventory(self):
+    def test_when_cola_is_dispensed_then_the_coins_are_placed_in_the_coin_inventory(self):
         self.machine.vendor_load_product(vm.COLA, 1)
         self.machine.insert_coin(vm.QUARTER)
         self.machine.insert_coin(vm.QUARTER)
@@ -118,7 +118,7 @@ class VendingMachineTests(unittest.TestCase):
         self.machine.select_product(vm.COLA)
         self.assertEqual(4, self.machine.get_coin_quantity(vm.QUARTER))
 
-    def test_when_chips_are_dispensed_the_coins_are_placed_in_the_coin_inventory(self):
+    def test_when_chips_are_dispensed_then_the_coins_are_placed_in_the_coin_inventory(self):
         self.machine.vendor_load_product(vm.CHIPS, 1)
         self.machine.insert_coin(vm.DIME)
         self.machine.insert_coin(vm.DIME)
@@ -130,7 +130,7 @@ class VendingMachineTests(unittest.TestCase):
         self.assertEqual(vm.CHIPS, self.machine.product_dispense_bin)
         self.assertEqual(5, self.machine.get_coin_quantity(vm.DIME))
 
-    def test_when_candy_is_dispensed_the_coins_are_placed_in_the_coin_inventory(self):
+    def test_when_candy_is_dispensed_then_the_coins_are_placed_in_the_coin_inventory(self):
         self.machine.vendor_load_product(vm.CANDY, 1)
         self.machine.insert_coin(vm.NICKEL)
         self.machine.insert_coin(vm.DIME)
@@ -143,15 +143,15 @@ class VendingMachineTests(unittest.TestCase):
         self.assertEqual(1, self.machine.get_coin_quantity(vm.DIME))
         self.assertEqual(2, self.machine.get_coin_quantity(vm.QUARTER))
 
-    def test_when_vendor_inserts_nickel_it_is_added_to_coin_inventory(self):
+    def test_when_vendor_inserts_nickel_then_it_is_added_to_coin_inventory(self):
         self.machine.vendor_load_coin(vm.NICKEL)
         self.assertEqual(1, self.machine.get_coin_quantity(vm.NICKEL))
 
-    def test_when_vendor_inserts_dimes_they_are_added_to_coin_inventory(self):
+    def test_when_vendor_inserts_then_dimes_they_are_added_to_coin_inventory(self):
         self.machine.vendor_load_coin(vm.DIME, 5)
         self.assertEqual(5, self.machine.get_coin_quantity(vm.DIME))
 
-    def test_when_vendor_inserts_quarters_they_are_added_to_coin_inventory(self):
+    def test_when_vendor_inserts_quarters_then_they_are_added_to_coin_inventory(self):
         self.machine.vendor_load_coin(vm.QUARTER, 100)
         self.assertEqual(100, self.machine.get_coin_quantity(vm.QUARTER))
 
