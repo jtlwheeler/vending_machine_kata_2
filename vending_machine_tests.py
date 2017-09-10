@@ -336,7 +336,7 @@ class VendingMachineTests(unittest.TestCase):
 
         self.assertEqual("INSERT COIN", self.machine.read_display())
 
-    def test_when_machine_has_cola_and_no_nickels_and_cola_is_selected_then_display_should_show_exact_change_only(self):
+    def test_when_machine_has_cola_and_no_nickels_and_cola_is_selected_then_display_should_show_price_exact_change_only(self):
         self.machine.vendor_load_coin(vm.DIME, 10)
         self.machine.vendor_load_coin(vm.QUARTER, 10)
 
@@ -347,7 +347,7 @@ class VendingMachineTests(unittest.TestCase):
         self.assertEqual("PRICE $1.00", self.machine.read_display())
         self.assertEqual("EXACT CHANGE ONLY", self.machine.read_display())
 
-    def test_when_machine_has_chips_and_no_nickels_and_chips_is_selected_then_display_should_show_exact_change_only(self):
+    def test_when_machine_has_chips_and_no_nickels_and_chips_is_selected_then_display_should_show_price_exact_change_only(self):
         self.machine.vendor_load_coin(vm.DIME, 10)
         self.machine.vendor_load_coin(vm.QUARTER, 10)
 
@@ -358,7 +358,7 @@ class VendingMachineTests(unittest.TestCase):
         self.assertEqual("PRICE $0.50", self.machine.read_display())
         self.assertEqual("EXACT CHANGE ONLY", self.machine.read_display())
 
-    def test_when_machine_has_candy_and_no_nickels_and_no_dimes_and_candy_is_selected_then_display_should_show_exact_change_only(self):
+    def test_when_machine_has_candy_and_no_nickels_and_no_dimes_and_candy_is_selected_then_display_should_show_price_exact_change_only(self):
         self.machine.vendor_load_coin(vm.QUARTER, 10)
 
         self.machine.vendor_load_product(vm.CANDY)
@@ -368,7 +368,7 @@ class VendingMachineTests(unittest.TestCase):
         self.assertEqual("PRICE $0.65", self.machine.read_display())
         self.assertEqual("EXACT CHANGE ONLY", self.machine.read_display())
 
-    def test_when_machine_has_cola_and_at_least_one_nickel_and_cola_is_selected_then_display_should_show_insert_coin(self):
+    def test_when_machine_has_cola_and_at_least_one_nickel_and_cola_is_selected_then_display_should_show_price_then_insert_coin(self):
         self.machine.vendor_load_coin(vm.NICKEL, 1)
 
         self.machine.vendor_load_product(vm.COLA)
@@ -378,7 +378,17 @@ class VendingMachineTests(unittest.TestCase):
         self.assertEqual("PRICE $1.00", self.machine.read_display())
         self.assertEqual("INSERT COIN", self.machine.read_display())
     
-    def test_when_machine_has_chips_and_at_least_one_nickel_and_chips_is_selected_then_display_should_show_insert_coin(self):
+    def test_when_machine_has_chips_and_at_least_one_nickel_and_chips_is_selected_then_display_should_show_price_then_insert_coin(self):
+        self.machine.vendor_load_coin(vm.NICKEL, 1)
+
+        self.machine.vendor_load_product(vm.CHIPS)
+
+        self.machine.select_product(vm.CHIPS)
+
+        self.assertEqual("PRICE $0.50", self.machine.read_display())
+        self.assertEqual("INSERT COIN", self.machine.read_display())
+    
+    def test_when_machine_has_candy_and_at_least_two_nickels_and_candy_is_selected_then_display_should_price_then_show_insert_coin(self):
         self.machine.vendor_load_coin(vm.NICKEL, 1)
 
         self.machine.vendor_load_product(vm.CHIPS)
