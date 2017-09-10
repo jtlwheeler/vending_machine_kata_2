@@ -24,8 +24,26 @@ class VendingMachine:
         for product in self._PRODUCTS:
             self._product_inventory[product] = 0
 
+        self._selected_product = ""
+
         self.coin_return = {}
         self.product_dispense_bin = ""
+
+    def _can_make_change_for_product(self, product):
+        if product == "":
+            return True
+
+        if product == COLA or product == CHIPS:
+            if self._coin_inventory[NICKEL] > 0:
+                return True
+            else:
+                return False
+
+        if product == CANDY:
+            if self._coin_inventory[NICKEL] >= 2 or self._coin_inventory[DIME] > 0:
+                return True
+            else:
+                return False
 
     def _get_current_amount(self):
         current_amount = 0
@@ -47,25 +65,6 @@ class VendingMachine:
             return
 
         if amount_needed == 10 and self._coin_inventory[NICKEL] > 1:
-            self._return_coin(NICKEL, 2, True)
-            return
-
-        if (amount_needed == 15 and self._coin_inventory[DIME] > 0 and
-                self._coin_inventory[NICKEL] > 0):
-            self._return_coin(NICKEL, remove_from_inventory=True)
-            self._return_coin(DIME, remove_from_inventory=True)
-            return
-
-        if amount_needed == 15 and self._coin_inventory[NICKEL] > 2:
-            self._return_coin(NICKEL, 3, True)
-            return
-
-        if amount_needed == 20 and self._coin_inventory[DIME] > 1:
-            self._return_coin(DIME, 2, True)
-
-        if (amount_needed == 20 and self._coin_inventory[DIME] > 0
-                and self._coin_inventory[NICKEL] > 1):
-            self._return_coin(DIME, remove_from_inventory=True)
             self._return_coin(NICKEL, 2, True)
 
     def _no_coins(self):
@@ -112,7 +111,8 @@ class VendingMachine:
             self._display = ""
             return temp_display
 
-        if self._no_coins():
+        if (self._no_coins() or (self._can_make_change_for_product(self._selected_product)
+                                 is False)):
             return "EXACT CHANGE ONLY"
 
         amount_entered = self._get_current_amount()
@@ -127,7 +127,11 @@ class VendingMachine:
                 self._return_coin(coin, self._inserted_coin_bin[coin])
                 self._inserted_coin_bin[coin] -= 1
 
+        self._selected_product = ""
+
     def select_product(self, product):
+        self._selected_product = product
+
         if self._product_inventory[product] == 0:
             self._display = "SOLD OUT"
             return
@@ -147,6 +151,7 @@ class VendingMachine:
         self._make_change(change_needed)
 
         self._display = "THANK YOU"
+        self._selected_product = ""
 
     def vendor_load_coin(self, coin, quantity=1):
         self._coin_inventory[coin] += quantity
