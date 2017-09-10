@@ -197,7 +197,7 @@ class VendingMachineTests(unittest.TestCase):
         self.machine.select_product(vm.CANDY)
         self.assertDictEqual({vm.NICKEL : 1}, self.machine.coin_return)
 
-    def test_when_candy_is_selected_and_ten_cents_is_needed_and_machine_only_has_dimes_then_a_dime_is_placed_in_the_coin_return(self):
+    def test_when_candy_is_selected_and_ten_cents_is_needed_and_machine_has_no_nickels_and_at_least_one_dime_then_a_dime_is_placed_in_the_coin_return(self):
         self.machine.vendor_load_product(vm.CANDY, 1)
         self.machine.vendor_load_coin(vm.DIME)
 
@@ -208,7 +208,19 @@ class VendingMachineTests(unittest.TestCase):
         self.machine.select_product(vm.CANDY)
         self.assertDictEqual({vm.DIME : 1}, self.machine.coin_return)
 
-    def test_when_candy_is_selected_and_ten_cents_is_needed_and_machine_has_no_dimes_then_2_nickels_are_placed_in_the_coin_return(self):
+    def test_when_candy_is_selected_and_ten_cents_is_needed_and_machine_has_at_least_two_nickels_and_at_least_one_dime_then_a_dime_is_placed_in_the_coin_return(self):
+        self.machine.vendor_load_product(vm.CANDY, 1)
+        self.machine.vendor_load_coin(vm.NICKEL, 2)
+        self.machine.vendor_load_coin(vm.DIME)
+
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.QUARTER)
+        self.machine.insert_coin(vm.QUARTER)
+
+        self.machine.select_product(vm.CANDY)
+        self.assertDictEqual({vm.DIME : 1}, self.machine.coin_return)
+
+    def test_when_candy_is_selected_and_ten_cents_is_needed_and_machine_has_no_dimes_and_at_least_2_nickels_then_2_nickels_are_placed_in_the_coin_return(self):
         self.machine.vendor_load_product(vm.CANDY, 1)
         self.machine.vendor_load_coin(vm.NICKEL, 2)
 
@@ -397,7 +409,7 @@ class VendingMachineTests(unittest.TestCase):
 
         self.assertEqual("PRICE $0.65", self.machine.read_display())
         self.assertEqual("INSERT COIN", self.machine.read_display())
-    
+
     def test_when_machine_has_candy_and_at_least_one_dime_and_candy_is_selected_then_display_should_price_then_show_insert_coin(self):
         self.machine.vendor_load_coin(vm.DIME, 1)
 
@@ -407,7 +419,6 @@ class VendingMachineTests(unittest.TestCase):
 
         self.assertEqual("PRICE $0.65", self.machine.read_display())
         self.assertEqual("INSERT COIN", self.machine.read_display())
-
 
 if __name__ == '__main__':
     unittest.main()
