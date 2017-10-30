@@ -1,0 +1,6 @@
+language: python
+python:
+    - "3.6"
+# Run the tests.
+script:
+    python3 -m unittest vending_machine_tests.py
